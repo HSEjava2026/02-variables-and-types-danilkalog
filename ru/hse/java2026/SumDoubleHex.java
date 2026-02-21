@@ -2,24 +2,22 @@ package ru.hse.java2026;
 
 import java.util.Scanner;
 
-public class SumCalculator{
+public class SumDoubleHex {
     static void main(String[] args) {
-        int sum = 0;
+        double sum = 0;
         String numbers = String.join(" ", args);
         Scanner scaner = new Scanner(numbers);
         while (scaner.hasNext()){
             String token = scaner.next();
             try{
-                int number = Integer.parseInt(token);
+                double number = Double.parseDouble(token);
                 sum += number;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Ошибка: " + token + " не число");
                 return;
             }
-
         }
         scaner.close();
         System.out.println(sum);
-         }
+    }
 }
-
