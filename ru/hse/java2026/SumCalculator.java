@@ -1,25 +1,43 @@
 package ru.hse.java2026;
 
-import java.util.Scanner;
-
-public class SumCalculator{
-    static void main(String[] args) {
+public class SumCalculator {
+    public static void main(String[] args) {
         int sum = 0;
-        String numbers = String.join(" ", args);
-        Scanner scaner = new Scanner(numbers);
-        while (scaner.hasNext()){
-            String token = scaner.next();
-            try{
-                int number = Integer.parseInt(token);
-                sum += number;
-            } catch (NumberFormatException e){
-                System.err.println("Ошибка: " + token + " не число");
-                return;
+
+        for (String s : args) {
+            int i = 0;
+
+            while (i < s.length()) {
+                char c = s.charAt(i);
+
+                if (!Character.isDigit(c) && c != '+' && c != '-') {
+                    i++;
+                    continue;
+                }
+
+                int start = i;
+
+                if (c == '+' || c == '-') {
+                    i++;
+                    if (i >= s.length() || !Character.isDigit(s.charAt(i))) {
+                        continue;
+                    }
+                }
+
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    i++;
+                }
+
+                String number = s.substring(start, i);
+
+                try {
+                    sum += Integer.parseInt(number);
+                } catch (NumberFormatException e) {
+                    // игнорируем
+                }
             }
-
         }
-        scaner.close();
-        System.out.println(sum);
-         }
-}
 
+        System.out.println(sum);
+    }
+}

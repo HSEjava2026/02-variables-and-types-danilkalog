@@ -1,26 +1,42 @@
-import java.util.Scanner;
+package ru.hse.java2026;
 
 public class Sum {
     public static void main(String[] args) {
         int sum = 0;
 
-        // склеиваем все аргументы в одну строку
-        String allArgs = String.join(" ", args);
+        for (String s : args) {
+            int i = 0;
 
-        // Scanner по умолчанию делит по пробельным символам
-        Scanner scanner = new Scanner(allArgs);
+            while (i < s.length()) {
+                char c = s.charAt(i);
 
-        while (scanner.hasNext()) {
-            String token = scanner.next();
-            try {
-                int number = Integer.parseInt(token);
-                sum += number;
-            } catch (NumberFormatException ignored) {
-                // если вдруг встретится не число — просто пропускаем
+                if (!Character.isDigit(c) && c != '+' && c != '-') {
+                    i++;
+                    continue;
+                }
+
+                int start = i;
+
+                if (c == '+' || c == '-') {
+                    i++;
+                    if (i >= s.length() || !Character.isDigit(s.charAt(i))) {
+                        continue;
+                    }
+                }
+
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    i++;
+                }
+
+                String number = s.substring(start, i);
+
+                try {
+                    sum += Integer.parseInt(number);
+                } catch (NumberFormatException e) {
+                    // игнорируем
+                }
             }
         }
-
-        scanner.close();
 
         System.out.println(sum);
     }
