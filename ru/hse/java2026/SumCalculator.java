@@ -43,6 +43,7 @@ public class SumCalculator {
             }
         }
 
+
         System.out.println(sum);
     }
 }
